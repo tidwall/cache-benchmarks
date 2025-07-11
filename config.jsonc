@@ -1,0 +1,13 @@
+{
+    // Paths to all compiled binaries.
+    "paths": {
+        "memtier": "memtier_benchmark",
+        "valkey": "../valkey/src/valkey-server",
+        "redis": "../redis/src/redis-server",
+        "dragonfly": "../dragonfly/dragonfly-${arch}",
+        "memcache": "../memcached/memcached",
+        // It is expected that the dotnet GarnetServer is already compiled
+        // for Release.
+        "garnet": "../garnet/main/GarnetServer/bin/Release/net9.0/GarnetServer"
+    }
+}

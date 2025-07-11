@@ -1,0 +1,6 @@
+{
+  "info": {"cache":"memcache","version":"memcached 1.6.38","threads":10,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":50},
+  "sets": {"opsec":1336137.690,"mbsec":692.271,"latency":{"min":0.096,"max":25.087,"avg":9.915,"p50_00":9.599,"p90_00":12.735,"p99_00":14.271,"p99_90":15.423,"p99_99":16.639}},
+  "gets": {"opsec":5080724.980,"mbsec":2679.918,"latency":{"min":0.024,"max":73.727,"avg":2.453,"p50_00":1.839,"p90_00":4.735,"p99_00":11.135,"p99_90":18.559,"p99_99":70.655}},
+  "perf": {"cpu_utilized":"7.745","cycles":"484043771063","instructions":"289914684484","branches":"<not supported>","branch_misses":"645069782","page_faults":"25088"}
+}

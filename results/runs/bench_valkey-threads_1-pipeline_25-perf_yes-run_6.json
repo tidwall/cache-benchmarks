@@ -1,0 +1,6 @@
+{
+  "info": {"cache":"valkey","version":"Valkey server v=8.1.1 sha=fcd8bc3e:0 malloc=jemalloc-5.3.0 bits=64 build=468c2bde4cf89187","threads":1,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":25},
+  "sets": {"opsec":779526.090,"mbsec":409.830,"latency":{"min":0.056,"max":20.735,"avg":8.222,"p50_00":7.967,"p90_00":8.319,"p99_00":16.127,"p99_90":16.639,"p99_99":17.151}},
+  "gets": {"opsec":929604.640,"mbsec":484.230,"latency":{"min":0.040,"max":16.639,"avg":7.087,"p50_00":7.071,"p90_00":7.263,"p99_00":13.887,"p99_90":14.527,"p99_99":14.847}},
+  "perf": {"cpu_utilized":"0.978","cycles":"170483348222","instructions":"266284981118","branches":"<not supported>","branch_misses":"241691013","page_faults":"2131"}
+}
