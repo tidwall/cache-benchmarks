@@ -18,6 +18,8 @@ These benchmarks measure thoughput, latency, and CPU cycles for
 - Latency also includes MAX, the absolute slowest single request.
 - CPU cycles are measured using the `perf` Linux utility.
 
+The "Threads" at the bottom of each graph represents the number of I/O Threads
+that the caching server software is configured to use for that specific benchmark.
 All the caching sofware has some type of multithreaded networking support through
 the following startup flags.
 
@@ -26,6 +28,7 @@ the following startup flags.
 - Valkey: `--io-threads`
 - Dragonfly: `--proactor_threads`
 - Garnet: `--miniothreads/maxiothreads --minthreads/maxthreads`
+
 
 For each benchmark, a fresh instance of the cache server software is started,
 which is dedicated to 16 cores using `taskset -c 0-15`.
