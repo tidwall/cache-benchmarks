@@ -17,6 +17,7 @@ These benchmarks measure thoughput, latency, and CPU cycles for
 - Latency is measured in 50th, 90th, 99th, 99.9th, 99.99th percentiles.
 - Latency also includes MAX, the absolute slowest single request.
 - CPU cycles are measured using the `perf` Linux utility.
+- All graphs are a [logarithmic scale](https://en.wikipedia.org/wiki/Logarithmic_scale).
 
 The "Threads" at the bottom of each graph represents the number of I/O Threads
 that the caching server software is configured to use for that specific benchmark.
@@ -51,6 +52,8 @@ Expect it to take about two weeks from start to finish to complete all runs.
 | Valkey | v=8.1.1 sha=fcd8bc3e:0 malloc=jemalloc-5.3.0 bits=64 build=468c2bde4cf89187 |
 | dragonfly | v1.30.3-a8c40e34757396a034e98b2c1c437dd568b50c8a |
 | Garnet | 1.0.65+381bb797fb158d163cd74996f7b1cfff713069fe |
+
+**All graphs are a [logarithmic scale](https://en.wikipedia.org/wiki/Logarithmic_scale).**
 
 ## Contents
 
