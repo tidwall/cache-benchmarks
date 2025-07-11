@@ -35,7 +35,7 @@ For each benchmark, a fresh instance of the cache server software is started,
 which is dedicated to 16 cores using `taskset -c 0-15`.
 The memtier_benchmark tool uses the other 16 cores `taskset -c 16-31`.
 Of those 16 cores, there are 256 clients spread evenly between 16 threads.
-Those clients perform 100K SET and 100K GET operations.
+Those clients perform 100K SET and 100K GET operations, each.
 
 There's a warmup stage that occurs at the start of each run, just after the
 cache software is started. It performs a dry run of all SET operations.
