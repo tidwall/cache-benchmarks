@@ -1,4 +1,4 @@
-module github.com/tidwall/cache-benchmarks/cmd
+module github.com/tidwall/cache-benchmarks
 
 go 1.23
 
