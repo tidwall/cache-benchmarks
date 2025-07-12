@@ -8,7 +8,7 @@ These benchmarks measure thoughput, latency, and CPU cycles for
 [Garnet](https://github.com/microsoft/garnet).
 
 - Persistance is turned off for all caches, no disk operations.
-- All connetions are local, UNIX named pipes.
+- All connections are local, UNIX named pipes.
 - The hardware is an AWS c8g.8xlarge (32 core non-NUMA ARM64).
 - The benchmarking tool is [memtier_benchmark](https://github.com/RedisLabs/memtier_benchmark).
 - Includes pipelining for 1, 10, 25, and 50.
