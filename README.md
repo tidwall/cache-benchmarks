@@ -42,7 +42,7 @@ cache software is started. It performs a dry run of all SET operations.
 This warmup is not a part of the measurements.
 
 The `./bench-all.sh` scripts starts running the benchmarks and produces results
-that are be placed in the [results](results) directory. 
+that are placed in the [results](results) directory. 
 Expect it to take about two weeks from start to finish to complete all runs.
 
 | CACHE | VERSION |
