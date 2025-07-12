@@ -21,7 +21,7 @@ These benchmarks measure thoughput, latency, and CPU cycles for
 
 The "Threads" at the bottom of each graph represents the number of I/O Threads
 that the caching server software is configured to use for that specific benchmark.
-All the caching sofware has some type of multithreaded networking support through
+All caching sofware benchmarked has some type of multithreaded networking support through
 the following startup flags.
 
 - Memcache: `-t`
