@@ -75,7 +75,7 @@ bench() {
     if [[ ! -f "$json" ]]; then
         ./bench $prog --threads=$threads --pipeline=$pipeline --perf=$perf \
             --ops=$nops --bthreads="$bthreads" --taskset="$ctaskset" \
-            --btaskset="$ctaskset" --sizerange="$sizerange" --conns="$conns"
+            --btaskset="$btaskset" --sizerange="$sizerange" --conns="$conns"
         chmod 666 bench.json
         mv bench.json $json
     fi
