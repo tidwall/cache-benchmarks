@@ -1,6 +1,6 @@
 {
-  "info": {"cache":"valkey","version":"Valkey server v=8.1.1 sha=fcd8bc3e:0 malloc=jemalloc-5.3.0 bits=64 build=468c2bde4cf89187","threads":3,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":1},
-  "sets": {"opsec":587097.940,"mbsec":308.663,"latency":{"min":0.008,"max":2.559,"avg":0.450,"p50_00":0.447,"p90_00":0.511,"p99_00":0.647,"p99_90":0.695,"p99_99":1.135}},
-  "gets": {"opsec":633251.990,"mbsec":329.860,"latency":{"min":0.008,"max":19.583,"avg":0.408,"p50_00":0.407,"p90_00":0.471,"p99_00":0.583,"p99_90":0.631,"p99_99":1.159}},
+  "info": {"cache":"valkey","version":"Valkey server v=8.1.1 sha=fcd8bc3e:0 malloc=jemalloc-5.3.0 bits=64 build=538068b40a1d8f11","threads":3,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":1},
+  "sets": {"opsec":541711.220,"mbsec":284.801,"latency":{"min":0.008,"max":1.103,"avg":0.482,"p50_00":0.487,"p90_00":0.535,"p99_00":0.687,"p99_90":0.743,"p99_99":0.799}},
+  "gets": {"opsec":580810.440,"mbsec":302.543,"latency":{"min":0.008,"max":1.655,"avg":0.440,"p50_00":0.447,"p90_00":0.487,"p99_00":0.599,"p99_90":0.671,"p99_99":0.759}},
   "perf": {}
 }

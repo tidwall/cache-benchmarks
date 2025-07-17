@@ -1,6 +1,6 @@
 {
   "info": {"cache":"garnet","version":"GarnetServer 1.0.65+381bb797fb158d163cd74996f7b1cfff713069fe","threads":8,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":50},
-  "sets": {"opsec":9148741.740,"mbsec":4809.888,"latency":{"min":0.024,"max":32.127,"avg":1.398,"p50_00":0.839,"p90_00":2.895,"p99_00":9.983,"p99_90":15.743,"p99_99":26.111}},
-  "gets": {"opsec":8109734.850,"mbsec":4224.351,"latency":{"min":0.016,"max":70.143,"avg":1.512,"p50_00":0.519,"p90_00":3.663,"p99_00":15.871,"p99_90":28.415,"p99_99":49.663}},
-  "perf": {"cpu_utilized":"6.173","cycles":"111433440557","instructions":"124514381350","branches":"<not supported>","branch_misses":"300364000","page_faults":"4835"}
+  "sets": {"opsec":19858723.800,"mbsec":10440.588,"latency":{"min":0.016,"max":21.887,"avg":1.073,"p50_00":1.151,"p90_00":1.815,"p99_00":2.911,"p99_90":16.255,"p99_99":21.759}},
+  "gets": {"opsec":17546745.630,"mbsec":9140.079,"latency":{"min":0.016,"max":130.559,"avg":0.977,"p50_00":0.175,"p90_00":1.495,"p99_00":16.319,"p99_90":57.855,"p99_99":123.903}},
+  "perf": {"cpu_utilized":"6.734","cycles":"103395388205","instructions":"128061531819","branches":"<not supported>","branch_misses":"299275632","page_faults":"6897"}
 }

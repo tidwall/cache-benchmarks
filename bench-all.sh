@@ -7,7 +7,7 @@ cd $(dirname "${BASH_SOURCE[0]}")
 progs="memcache dragonfly valkey redis garnet"
 
 # Cache threading to benchmark
-threadz="1 2 3 4 6 7 8 10 12 14 16"
+threadz="1 2 3 4 5 6 7 8 10 12 14 16"
 
 # Number of operations per SET and GET, per benchmark connection threads.
 # Thus if you set this 1000 and running on machine with 32 threads then there
@@ -49,13 +49,16 @@ btaskset="16-31"
 resultsdir="results"
 
 # Bench graphs
-benches="latency cpucycles throughput" 
+benches="throughput latency cpucycles" 
 
 # Latency percentiles
 percentiles="50 90 99 999 9999 min max avg"
 
 # Operations 
 ops="get set"
+
+# Graph scales
+scales="logarithmic linear"
 
 ################################################################################
 ## FUNCTIONS
@@ -75,7 +78,7 @@ bench() {
     if [[ ! -f "$json" ]]; then
         ./bench $prog --threads=$threads --pipeline=$pipeline --perf=$perf \
             --ops=$nops --bthreads="$bthreads" --taskset="$ctaskset" \
-            --btaskset="$ctaskset" --sizerange="$sizerange" --conns="$conns"
+            --btaskset="$btaskset" --sizerange="$sizerange" --conns="$conns"
         chmod 666 bench.json
         mv bench.json $json
     fi
@@ -89,10 +92,10 @@ choose() {
 }
 
 graph() {
-    bench=$1; pipeline=$2; percentile=$3; op=$4
-    echo "=== GRAPH BENCH($bench) PIPELINE($pipeline) PERCENTILE($percentile) PERF($op) ==="
+    bench=$1; pipeline=$2; percentile=$3; op=$4; scale=$5; scase=$6; 
+    echo "=== GRAPH BENCH($bench) PIPELINE($pipeline) PERCENTILE($percentile) PERF($op) SCALE($scale) ==="
     ./graph --bench=$bench --pipeline=$pipeline --percentile=$percentile \
-        --which=$op --dir=results
+        --which=$op --scale=$scale --dir=results --scase=$scase
 }
 
 ################################################################################
@@ -122,20 +125,25 @@ done
 ./combine --path="$resultsdir"
 fi
 echo === SAVED OUTPUT ===
-for bench in ${benches}; do
-    for pipeline in ${pipelines}; do
-        if [[ "$bench" == "latency" ]]; then
-            for percentile in ${percentiles}; do
-                for op in ${ops}; do
-                    graph $bench $pipeline $percentile $op
+for scale in ${scales}; do
+    for bench in ${benches}; do
+        for pipeline in ${pipelines}; do
+            if [[ "$bench" == "latency" ]]; then
+                for percentile in ${percentiles}; do
+                    for op in ${ops}; do
+                        graph $bench $pipeline $percentile $op $scale
+                    done
                 done
-            done
-        elif [[ "$bench" == "throughput" ]]; then
-            for op in ${ops}; do
-                graph $bench $pipeline "" $op
-            done
-        else
-            graph $bench $pipeline "" ""
-        fi
+            elif [[ "$bench" == "throughput" ]]; then
+                for op in ${ops}; do
+                    graph $bench $pipeline "" $op $scale
+                done
+            else
+                graph $bench $pipeline "" "" $scale
+            fi
+        done
     done
 done
+echo "=== SPECIAL CASE(remove garnet for latency 1 thread) ==="
+graph latency 1 99 set linear 1
+graph latency 1 99 get linear 1

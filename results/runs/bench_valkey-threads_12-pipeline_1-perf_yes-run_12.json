@@ -1,6 +1,6 @@
 {
-  "info": {"cache":"valkey","version":"Valkey server v=8.1.1 sha=fcd8bc3e:0 malloc=jemalloc-5.3.0 bits=64 build=468c2bde4cf89187","threads":12,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":1},
-  "sets": {"opsec":794545.520,"mbsec":417.727,"latency":{"min":0.008,"max":32.767,"avg":0.337,"p50_00":0.199,"p90_00":0.559,"p99_00":3.455,"p99_90":12.031,"p99_99":17.535}},
-  "gets": {"opsec":750296.690,"mbsec":390.829,"latency":{"min":0.008,"max":34.559,"avg":0.353,"p50_00":0.207,"p90_00":0.575,"p99_00":3.647,"p99_90":12.351,"p99_99":17.023}},
-  "perf": {"cpu_utilized":"9.066","cycles":"1487771486920","instructions":"4630813239559","branches":"<not supported>","branch_misses":"1309444108","page_faults":"15084"}
+  "info": {"cache":"valkey","version":"Valkey server v=8.1.1 sha=fcd8bc3e:0 malloc=jemalloc-5.3.0 bits=64 build=538068b40a1d8f11","threads":12,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":1},
+  "sets": {"opsec":1413032.720,"mbsec":742.892,"latency":{"min":0.008,"max":3.951,"avg":0.180,"p50_00":0.183,"p90_00":0.199,"p99_00":0.223,"p99_90":0.423,"p99_99":0.583}},
+  "gets": {"opsec":1375334.100,"mbsec":716.410,"latency":{"min":0.008,"max":0.855,"avg":0.185,"p50_00":0.191,"p90_00":0.199,"p99_00":0.223,"p99_90":0.423,"p99_99":0.575}},
+  "perf": {"cpu_utilized":"11.633","cycles":"1185945914324","instructions":"3825861594253","branches":"<not supported>","branch_misses":"930929240","page_faults":"15930"}
 }

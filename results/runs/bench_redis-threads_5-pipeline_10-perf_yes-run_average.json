@@ -1,0 +1,6 @@
+{
+  "info": {"cache":"redis","version":"Redis server v=8.0.2 sha=994bc96b:0 malloc=jemalloc-5.3.0 bits=64 build=3bef0c47cb5a46b8","threads":5,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":10,"kind":"average"},
+  "sets": {"opsec":1241365.581,"mbsec":652.639,"latency":{"min":0.098,"max":5.787,"avg":2.411,"p50_00":2.072,"p90_00":4.195,"p99_00":4.483,"p99_90":5.096,"p99_99":5.512}},
+  "gets": {"opsec":1457903.669,"mbsec":759.420,"latency":{"min":0.090,"max":9.921,"avg":2.048,"p50_00":1.761,"p90_00":3.583,"p99_00":3.912,"p99_90":4.115,"p99_99":6.593}},
+  "perf": {"cpu_utilized":1.501,"cycles":203196164724,"instructions":260226797834,"branches":0,"branch_misses":234418781,"page_faults":253862}
+}

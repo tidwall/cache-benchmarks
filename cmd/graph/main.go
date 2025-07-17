@@ -25,6 +25,8 @@ var pipeline int = 1
 var ppp string = "99"
 var bench string = "throughput"
 var force bool = false
+var scale string = "logarithmic"
+var scase string = ""
 
 const fontfamily string = "Futura"
 
@@ -41,7 +43,9 @@ func main() {
 	flag.StringVar(&bench, "bench", bench, "throughput,latency,cpucycles")
 	flag.StringVar(&kind, "kind", kind, "median,average,best,worst")
 	flag.StringVar(&dir, "dir", dir, "Results directory")
-	flag.BoolVar(&force, "force", false, "Force write (overwrite)")
+	flag.BoolVar(&force, "force", force, "Force write (overwrite)")
+	flag.StringVar(&scale, "scale", scale, "logarithmic,linear")
+	flag.StringVar(&scase, "scase", scase, "special case: 1=remove garnet (thread 1)")
 	flag.Parse()
 
 	data, err := os.ReadFile(dir + "/output.json")
@@ -55,6 +59,12 @@ func main() {
 	case "throughput", "cpucycles", "latency":
 	default:
 		fmt.Printf("invalid flag --bench='%s'\n", bench)
+		os.Exit(1)
+	}
+	switch scale {
+	case "logarithmic", "linear":
+	default:
+		fmt.Printf("invalid flag --scale='%s'\n", scale)
 		os.Exit(1)
 	}
 
@@ -100,7 +110,11 @@ func main() {
 
 func graphCPUCycles() {
 	filename := "graph_cpucycles-pipeline_" + fmt.Sprint(pipeline) +
-		"-kind_" + kind + ".png"
+		"-kind_" + kind + "-scale_" + scale
+	if scase != "" {
+		filename += "-case_" + scase
+	}
+	filename += ".png"
 	filename = filepath.Join(dir, "graphs", filename)
 	if !force {
 		_, err := os.Stat(filename)
@@ -145,12 +159,16 @@ func graphCPUCycles() {
 				outData += ", "
 			}
 			res2 := res1.Get("#(data.info.threads=" + fmt.Sprint(threads) + ")")
-			outData += fmt.Sprintf("%.0f",
+			point := fmt.Sprintf("%.0f",
 				res2.Get("data.perf.cycles").Float()/float64(coperations*2))
+			if scase == "1" && cache == "garnet" && threads == 1 {
+				point = "0"
+			}
+			outData += point
 		}
 		outData += "],\n"
 	}
-	drawGraph(title, ytitle, filename, outXSeries, outData, outColors)
+	drawGraph(title, ytitle, filename, outXSeries, outData, outColors, scale)
 }
 
 func graphLatency() {
@@ -199,7 +217,12 @@ func graphLatency() {
 	}
 
 	filename := "graph_latency_" + pwhich + "-which_" + which +
-		"-pipeline_" + fmt.Sprint(pipeline) + "-kind_" + kind + ".png"
+		"-pipeline_" + fmt.Sprint(pipeline) + "-kind_" + kind +
+		"-scale_" + scale
+	if scase != "" {
+		filename += "-case_" + scase
+	}
+	filename += ".png"
 	filename = filepath.Join(dir, "graphs", filename)
 	if !force {
 		_, err := os.Stat(filename)
@@ -244,12 +267,16 @@ func graphLatency() {
 				outData += ", "
 			}
 			res2 := res1.Get("#(data.info.threads=" + fmt.Sprint(threads) + ")")
-			outData += fmt.Sprintf("%.0f", res2.Get("data."+which+".latency."+
+			point := fmt.Sprintf("%.0f", res2.Get("data."+which+".latency."+
 				pwhich).Float()*1000)
+			if scase == "1" && cache == "garnet" && threads == 1 {
+				point = "0"
+			}
+			outData += point
 		}
 		outData += "],\n"
 	}
-	drawGraph(title, ytitle, filename, outXSeries, outData, outColors)
+	drawGraph(title, ytitle, filename, outXSeries, outData, outColors, scale)
 }
 
 func graphThroughput() {
@@ -267,7 +294,12 @@ func graphThroughput() {
 	}
 
 	filename := "graph_opsec-which_" + which +
-		"-pipeline_" + fmt.Sprint(pipeline) + "-kind_" + kind + ".png"
+		"-pipeline_" + fmt.Sprint(pipeline) + "-kind_" + kind +
+		"-scale_" + scale
+	if scase != "" {
+		filename += "-case_" + scase
+	}
+	filename += ".png"
 	filename = filepath.Join(dir, "graphs", filename)
 	if !force {
 		_, err := os.Stat(filename)
@@ -311,16 +343,25 @@ func graphThroughput() {
 				outData += ", "
 			}
 			res2 := res1.Get("#(data.info.threads=" + fmt.Sprint(threads) + ")")
-			outData += fmt.Sprintf("%d", res2.Get("data."+which+".opsec").Int()/1000)
+			point := fmt.Sprintf("%d", res2.Get("data."+which+".opsec").Int()/1000)
+			if scase == "1" && cache == "garnet" && threads == 1 {
+				point = "0"
+			}
+			outData += point
 		}
 		outData += "],\n"
 	}
-	drawGraph(title, ytitle, filename, outXSeries, outData, outColors)
+	drawGraph(title, ytitle, filename, outXSeries, outData, outColors, scale)
 }
 
-func drawGraph(title, ytitle, filename, outXSeries, outData, outColors string) {
+func drawGraph(title, ytitle, filename, outXSeries, outData, outColors, scale string) {
 	xtitle := "Threads"
-	script := BarScript
+	var script string
+	if scale == "linear" {
+		script = BarScriptLinear
+	} else {
+		script = BarScriptLogarithmic
+	}
 	script = strings.Replace(script, "{{.TITLE}}", title, -1)
 	script = strings.Replace(script, "{{.XTITLE}}", xtitle, -1)
 	script = strings.Replace(script, "{{.YTITLE}}", ytitle, -1)
@@ -343,7 +384,7 @@ func drawGraph(title, ytitle, filename, outXSeries, outData, outColors string) {
 	os.RemoveAll("graph.py")
 }
 
-const BarScript = `
+const BarScriptLogarithmic = `
 ###############################################################
 xseries = [{{.XSERIES}}]
 data = {
@@ -377,6 +418,7 @@ edgecolors = {
 x = np.arange(len(xseries))
 width = 0.12
 max_val = max(max(vals) for vals in data.values())
+
 min_val = min(min(vals) for vals in data.values())
 top_tick = 10 ** math.ceil(math.log(max_val, 10))
 bottom_tick = 10 ** math.floor(math.log10(min_val))
@@ -428,6 +470,132 @@ plt.xlabel(xtitle, fontsize=18, fontweight='bold', labelpad=20)
 plt.title(title, fontsize=20, fontweight='bold', pad=30)
 
 # X-ticks
+plt.xticks(x + width * 2.5, xseries, fontsize=12)
+for label in plt.gca().get_xticklabels():
+    label.set_y(-0.02)
+for label in plt.gca().get_yticklabels():
+    label.set_horizontalalignment('right')
+    label.set_x(-0.01)
+
+# Grid
+plt.grid(axis="y", which="major", linestyle='-', linewidth=0.7, alpha=0.7, zorder=0)
+plt.grid(axis="x", linestyle='', zorder=0)
+
+# Clean axis lines and ticks
+ax = plt.gca()
+for spine in ['left', 'bottom', 'top', 'right']:
+    ax.spines[spine].set_visible(False)
+ax.tick_params(axis='y', which='both', length=0)
+ax.tick_params(axis='x', which='both', length=0)
+
+# Legend
+plt.legend(
+    handles=bars,
+    labels=data.keys(),
+    fontsize=12,
+    loc='center left',
+    bbox_to_anchor=(1.01, 0.5),
+    borderaxespad=0.,
+    frameon=False,
+    labelspacing=1.2,
+    handlelength=1.0,
+    handleheight=1.0,
+    handletextpad=0.6
+)
+
+# Layout and margin
+plt.tight_layout(rect=[0, 0, 0.92, 0.93])
+plt.savefig(filename, dpi=150, bbox_inches='tight')
+ImageOps.expand(Image.open(filename), border=40, fill='white').save(filename)
+`
+
+//
+//
+//
+//
+//
+//
+//
+
+const BarScriptLinear = `
+###############################################################
+xseries = [{{.XSERIES}}]
+data = {
+    {{.DATA}}
+}
+colors = {
+    {{.COLORS}}
+}
+title = "{{.TITLE}}"
+ytitle = "{{.YTITLE}}"
+xtitle = "{{.XTITLE}}"
+filename = "{{.FILENAME}}"
+fontfamily = "{{.FONTFAMILY}}"
+###############################################################
+
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+from PIL import Image, ImageOps
+import numpy as np
+import math
+
+plt.rcParams['font.family'] = fontfamily
+
+# Create darker edge colors
+edgecolors = {
+    label: tuple(max(0, min(1, c * 0.4)) for c in mcolors.to_rgb(colors[label]))
+    for label in colors
+}
+
+# Axes setup
+x = np.arange(len(xseries))
+width = 0.12
+max_val = max(max(vals) for vals in data.values())
+
+
+# Main linear ticks
+base_ticks = np.linspace(0, max_val * 1.1, num=20)
+
+# Minor ticks (quarter divisions)
+minor_ticks = []
+for i in range(len(base_ticks) - 1):
+    start = base_ticks[i]
+    end = base_ticks[i + 1]
+    step = (end - start) / 4
+    for j in range(1, 4):
+        minor_ticks.append(start + j * step)
+
+# Create figure
+plt.figure(figsize=(12, 7))
+bars = []
+for i, (label, values) in enumerate(data.items()):
+    bar = plt.bar(
+        x + i * width,
+        values,
+        width=width,
+        label=label,
+        color=colors[label],
+        edgecolor=edgecolors[label],
+        linewidth=1.5,
+        zorder=3
+    )
+    bars.append(bar[0])
+
+plt.yscale("linear")
+plt.yticks(base_ticks, [f"{int(y):,}" for y in base_ticks], fontsize=12)
+plt.ylim(0, max_val * 1.1)
+
+# Minor grid lines
+for y in minor_ticks:
+    plt.axhline(y, color='gray', linestyle='-', linewidth=0.4, alpha=0.2, zorder=0)
+
+
+# Labels and title
+plt.ylabel(ytitle, fontsize=18, fontweight='bold', labelpad=20)
+plt.xlabel(xtitle, fontsize=18, fontweight='bold', labelpad=20)
+plt.title(title, fontsize=20, fontweight='bold', pad=30)
+
+# X-ticks and formatting
 plt.xticks(x + width * 2.5, xseries, fontsize=12)
 for label in plt.gca().get_xticklabels():
     label.set_y(-0.02)
