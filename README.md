@@ -56,7 +56,7 @@ Expect it to take about two weeks from start to finish to complete all runs.
 
 Below are five important benchmarks presented in linear scale.
 There are over 150 graphs in total.
-To see them all chose one of the following options.
+To see them all choose one of the following options.
 
 - [All Benchmarks Linear Scale](LINEAR.md)
 - [All Benchmarks Logarthimic Scale](LOGARITHMIC.md)
