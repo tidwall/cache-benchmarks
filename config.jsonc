@@ -6,6 +6,7 @@
         "redis": "../redis/src/redis-server",
         "dragonfly": "../dragonfly/dragonfly-${arch}",
         "memcache": "../memcached/memcached",
+        "pogocache": "../pogocache/pogocache",
         // It is expected that the dotnet GarnetServer is already compiled
         // for Release.
         "garnet": "../garnet/main/GarnetServer/bin/Release/net9.0/GarnetServer"

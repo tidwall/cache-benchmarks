@@ -4,7 +4,7 @@ set -e
 cd $(dirname "${BASH_SOURCE[0]}")
 
 # Cache programs to benchmark
-progs="memcache dragonfly valkey redis garnet"
+progs="memcache dragonfly valkey redis garnet pogocache"
 
 # Cache threading to benchmark
 threadz="1 2 3 4 5 6 7 8 10 12 14 16"

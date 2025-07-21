@@ -31,7 +31,7 @@ var scase string = ""
 const fontfamily string = "Futura"
 
 var colors = []string{
-	"#ff7f0e", "#d62728", "#1f77b4", "#8c564b", "#2ca02c", "#e64098",
+	"#ff7f0e", "#d62728", "#1f77b4", "#e64098", "#8c564b", "#2ca02c",
 }
 
 func main() {

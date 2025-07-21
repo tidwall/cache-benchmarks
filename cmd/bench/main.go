@@ -38,6 +38,12 @@ var (
 	isroot bool   = os.Geteuid() == 0 //
 
 	nowarmup bool
+
+	// pogocache
+	noticker  string
+	queuesize int
+	backlog   int
+	net4      bool
 )
 
 const tcpport string = "19283"
@@ -53,12 +59,14 @@ func killprocs() {
 	exec.Command("pkill", "valkey").Run()
 	exec.Command("pkill", "redis").Run()
 	exec.Command("pkill", "memcache").Run()
+	exec.Command("pkill", "pogocache").Run()
 	exec.Command("pkill", "dragonfly").Run()
 	exec.Command("pkill", "memtier").Run()
 	exec.Command("pkill", "dotnet").Run()
 	exec.Command("pkill", "garnet").Run()
 	exec.Command("pkill", "GarnetServer").Run()
 	exec.Command("pkill", "-9", "memcache").Run()
+	exec.Command("pkill", "-9", "pogocache").Run()
 	exec.Command("pkill", "-9", "valkey").Run()
 	exec.Command("pkill", "-9", "redis").Run()
 	exec.Command("pkill", "-9", "dragonfly").Run()
@@ -242,7 +250,7 @@ func writestats() {
 func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "usage: %s "+
-			"(valkey|reds|memcache|dragonfly|garnet) "+
+			"(valkey|reds|memcache|dragonfly|garnet|pogocache) "+
 			"[options]\n", os.Args[0])
 		flag.PrintDefaults()
 	}
@@ -276,6 +284,11 @@ func main() {
 	flag.IntVar(&pipeline, "pipeline", pipeline, "command pipeline")
 	flag.StringVar(&proto, "proto", "", "protocol")
 
+	flag.StringVar(&noticker, "noticker", noticker, "pogocache: noticker yes/no")
+	flag.IntVar(&queuesize, "queue", queuesize, "pogocache: queue size")
+	flag.IntVar(&backlog, "backlog", -1, "pogocache: backlog")
+	flag.BoolVar(&net4, "net4", false, "pogocache: net4")
+
 	flag.BoolVar(&nowarmup, "nowarmup", false, "nowarmup")
 	flag.Parse()
 
@@ -300,6 +313,37 @@ func main() {
 	vers = getvers(cache)
 	var args1 []string
 	switch cache {
+	case "pogocache":
+		args1 = []string{
+			getpath("pogocache"),
+			"-t", fmt.Sprint(threads),
+			"--maxmemory", "32gb",
+			// "--allocator", "stock",
+			// "--shards", "256",
+			// "--arenas", "1",
+		}
+		// proto = "memcache_text"
+		if tcp {
+			args1 = append(args1, "-p", tcpport)
+		} else {
+			args1 = append(args1, "-s", unixsocket)
+			args1 = append(args1, "-p", "0")
+		}
+		if noticker == "yes" {
+			args1 = append(args1, "--noticker", "yes")
+		}
+		if queuesize > 0 {
+			args1 = append(args1, "--queue", fmt.Sprint(queuesize))
+		}
+		if backlog != -1 {
+			args1 = append(args1, "--backlog", fmt.Sprint(backlog))
+		}
+		if net4 {
+			args1 = append(args1, "--net4", "yes")
+		}
+		if nowarmup {
+			args1 = append(args1, "--nowarmup", "yes")
+		}
 	case "redis":
 		args1 = []string{
 			getpath("redis"),
@@ -385,7 +429,7 @@ func main() {
 		}
 	default:
 		fmt.Fprintf(os.Stderr, "invalid cache: %s, expected 'valkey', "+
-			"'redis', 'memcache', 'dragonfly', 'garnet'\n", cache)
+			"'redis', 'memcache', 'dragonfly', 'garnet', 'pogocache'\n", cache)
 		os.Exit(1)
 	}
 

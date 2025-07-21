@@ -4,8 +4,9 @@ These benchmarks measure thoughput, latency, and CPU cycles for
 [Memcache](https://github.com/memcached/memcached),
 [Redis](https://github.com/redis/redis),
 [Valkey](https://github.com/valkey-io/valkey),
-[Dragonfly](https://github.com/dragonflydb/dragonfly), and
-[Garnet](https://github.com/microsoft/garnet).
+[Dragonfly](https://github.com/dragonflydb/dragonfly),
+[Garnet](https://github.com/microsoft/garnet), and
+[Pogocache](https://github.com/tidwall/pogocache).
 
 - Persistance is turned off for all caches, no disk operations.
 - All connections are local, UNIX named pipes.
@@ -28,6 +29,7 @@ the following startup flags.
 - Valkey: `--io-threads`
 - Dragonfly: `--proactor_threads`
 - Garnet: `--miniothreads/maxiothreads --minthreads/maxthreads`
+- Pogocache: `-t`
 
 For each benchmark, a fresh instance of the cache server software is started,
 which is dedicated to 16 cores using `taskset -c 0-15`.
@@ -50,6 +52,7 @@ Expect it to take about two weeks from start to finish to complete all runs.
 | Valkey | v=8.1.1 sha=fcd8bc3e:0 malloc=jemalloc-5.3.0 bits=64 build=538068b40a1d8f11 |
 | dragonfly | v1.30.3-a8c40e34757396a034e98b2c1c437dd568b50c8a |
 | Garnet | 1.0.65+381bb797fb158d163cd74996f7b1cfff713069fe |
+| Pogocache | 1.0.0 |
 
 
 # Benchmarks
