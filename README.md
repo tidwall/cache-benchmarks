@@ -62,7 +62,7 @@ There are over 150 graphs in total.
 To see them all choose one of the following options.
 
 - [All Benchmarks Linear Scale](LINEAR.md)
-- [All Benchmarks Logarthimic Scale](LOGARITHMIC.md)
+- [All Benchmarks Logarithmic Scale](LOGARITHMIC.md)
 
 ## Throughput
 
