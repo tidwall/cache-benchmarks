@@ -48,7 +48,7 @@ Expect it to take about two weeks from start to finish to complete all runs.
 | CACHE | VERSION |
 | ----- | ------- |
 | memcached | 1.6.38 |
-| Redis | v=8.0.2 sha=994bc96b:0 malloc=jemalloc-5.3.0 bits=64 build=3bef0c47cb5a46b8 |
+| Redis | v=8.2.1 sha=cd0b1293:0 malloc=jemalloc-5.3.0 bits=64 build=4223e47892f6315a |
 | Valkey | v=8.1.1 sha=fcd8bc3e:0 malloc=jemalloc-5.3.0 bits=64 build=538068b40a1d8f11 |
 | dragonfly | v1.30.3-a8c40e34757396a034e98b2c1c437dd568b50c8a |
 | Garnet | 1.0.65+381bb797fb158d163cd74996f7b1cfff713069fe |

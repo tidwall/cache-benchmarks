@@ -1,6 +1,6 @@
 {
-  "info": {"cache":"redis","version":"Redis server v=8.0.2 sha=994bc96b:0 malloc=jemalloc-5.3.0 bits=64 build=3bef0c47cb5a46b8","threads":2,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":25},
-  "sets": {"opsec":1003659.200,"mbsec":527.667,"latency":{"min":0.120,"max":14.655,"avg":6.372,"p50_00":6.431,"p90_00":7.039,"p99_00":7.551,"p99_90":7.999,"p99_99":11.711}},
-  "gets": {"opsec":1265720.770,"mbsec":659.312,"latency":{"min":0.144,"max":12.479,"avg":5.210,"p50_00":5.247,"p90_00":5.951,"p99_00":6.527,"p99_90":7.903,"p99_99":9.279}},
-  "perf": {"cpu_utilized":"1.311","cycles":"166545680068","instructions":"227510132420","branches":"<not supported>","branch_misses":"188363307","page_faults":"119433"}
+  "info": {"cache":"redis","version":"Redis server v=8.2.1 sha=cd0b1293:0 malloc=jemalloc-5.3.0 bits=64 build=4223e47892f6315a","threads":2,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":25},
+  "sets": {"opsec":889713.200,"mbsec":467.761,"latency":{"min":0.112,"max":15.487,"avg":7.188,"p50_00":7.231,"p90_00":7.487,"p99_00":7.775,"p99_90":14.207,"p99_99":14.975}},
+  "gets": {"opsec":1118380.830,"mbsec":582.563,"latency":{"min":0.072,"max":13.311,"avg":5.722,"p50_00":5.759,"p90_00":6.015,"p99_00":6.271,"p99_90":11.583,"p99_99":12.031}},
+  "perf": {"cpu_utilized":"1.644","cycles":"229680727996","instructions":"304273993449","branches":"<not supported>","branch_misses":"497201379","page_faults":"28983"}
 }
