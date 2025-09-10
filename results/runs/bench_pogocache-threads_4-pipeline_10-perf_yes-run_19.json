@@ -1,6 +1,6 @@
 {
-  "info": {"cache":"pogocache","version":"pogocache v0.0.1","threads":4,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":10},
-  "sets": {"opsec":3952541.100,"mbsec":2078.021,"latency":{"min":0.016,"max":1.791,"avg":0.649,"p50_00":0.607,"p90_00":0.951,"p99_00":1.239,"p99_90":1.311,"p99_99":1.383}},
-  "gets": {"opsec":4347631.890,"mbsec":2264.676,"latency":{"min":0.008,"max":3.087,"avg":0.587,"p50_00":0.591,"p90_00":0.751,"p99_00":1.159,"p99_90":1.223,"p99_99":1.583}},
-  "perf": {"cpu_utilized":"3.815","cycles":"130797003249","instructions":"164040974625","branches":"<not supported>","branch_misses":"196872192","page_faults":"1586"}
+  "info": {"cache":"pogocache","version":"pogocache 1.2.0","threads":4,"bench_threads":16,"connections":256,"operations":25600000,"sizerange":"1-1024","pipeline":10},
+  "sets": {"opsec":3570754.070,"mbsec":1877.299,"latency":{"min":0.016,"max":2.079,"avg":0.717,"p50_00":0.671,"p90_00":1.055,"p99_00":1.391,"p99_90":1.671,"p99_99":1.863}},
+  "gets": {"opsec":4086914.630,"mbsec":2128.869,"latency":{"min":0.008,"max":1.935,"avg":0.623,"p50_00":0.623,"p90_00":0.663,"p99_00":1.231,"p99_90":1.279,"p99_99":1.311}},
+  "perf": {"cpu_utilized":"3.592","cycles":"141200010127","instructions":"181828426045","branches":"<not supported>","branch_misses":"243627698","page_faults":"2052"}
 }
